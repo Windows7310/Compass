@@ -18,8 +18,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import static android.R.attr.width;
-
 /**
  * @author: yifan.lin
  * @description:
@@ -34,7 +32,7 @@ public class CompassView extends View {
 
     private int mWidth;
 
-    private int mCenterX, mCenterY;
+    private int mCenterX;
 
     private int mTextHeight;
     private int mOutSideRadius;
@@ -79,6 +77,8 @@ public class CompassView extends View {
     private float mValCompare;
 
     private String mText;
+
+    private float mDefaultWidth = 1080;
 
     public CompassView(Context context) {
         this(context, null);
@@ -193,10 +193,17 @@ public class CompassView extends View {
         }
         mTextHeight = mWidth / 3;
         mCenterX = mWidth / 2;
-        mCenterY = mWidth / 2 + mTextHeight;
         mOutSideRadius = mWidth * 3 / 8;
         mRingRadius = mOutSideRadius * 4 / 5;
         mMaxCameraTranslate = 0.02f * mOutSideRadius;
+
+        float scale = (float) mWidth / mDefaultWidth;
+
+        mTextPaint.setTextSize(80 * scale);
+        mNorthPaint.setTextSize(40 * scale);
+        mOthersPaint.setTextSize(40 * scale);
+        mCenterPaint.setTextSize(120 * scale);
+        mSmallDegreePaint.setTextSize(30 * scale);
 
         setMeasuredDimension(mWidth, mWidth + mWidth / 3);
     }
@@ -446,7 +453,7 @@ public class CompassView extends View {
                 mCameraRotateX = (float) animation.getAnimatedValue(cameraRotateXName);
                 mCameraRotateY = (float) animation.getAnimatedValue(cameraRotateYName);
                 mCameraTranslateX = (float) animation.getAnimatedValue(canvasTranslateXName);
-                mCameraTranslateX = (float) animation.getAnimatedValue(canvasTranslateYName);
+                mCameraTranslateY = (float) animation.getAnimatedValue(canvasTranslateYName);
             }
         });
         mValueAnimator.start();
@@ -457,8 +464,8 @@ public class CompassView extends View {
         float translateY = event.getY() - getHeight() / 2;
 
         float[] percentArr = getPercent(translateX, translateY);
-        mCameraRotateX = percentArr[0] * mMaxCameraRotate;
-        mCameraRotateY = percentArr[1] * mMaxCameraRotate;
+        mCameraTranslateX = percentArr[0] * mMaxCameraTranslate;
+        mCameraTranslateY = percentArr[1] * mMaxCameraTranslate;
     }
 
     private void getCameraRotate(MotionEvent event) {

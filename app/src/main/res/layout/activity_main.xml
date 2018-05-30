@@ -9,7 +9,7 @@
 
     <com.ivan.compass.CompassView
         android:id="@+id/cv_main_compass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="200dp"
+        android:layout_height="200dp"/>
 
 </android.support.constraint.ConstraintLayout>
