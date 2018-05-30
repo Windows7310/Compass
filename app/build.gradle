@@ -1,10 +1,13 @@
-apply plugin: 'com.android.application'
+//apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
+//apply plugin: 'com.github.dcendents.android-maven'
+//group='com.github.Windows7310'
 
 android {
     compileSdkVersion 27
     buildToolsVersion "27.0.3"
     defaultConfig {
-        applicationId "com.ivan.compass"
+//        applicationId "com.ivan.compass"
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
